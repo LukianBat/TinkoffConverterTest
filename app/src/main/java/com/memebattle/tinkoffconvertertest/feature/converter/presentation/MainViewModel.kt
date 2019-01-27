@@ -25,36 +25,41 @@ class MainViewModel : ViewModel() {
             override fun onError(error: Throwable) {
                 baseCallback.onError(error)
             }
+
             override fun onSuccess(result: CurrenciesResponse) {
-               baseCallback.onSuccess(true)
+                baseCallback.onSuccess(true)
                 roomCashService.cleanCash()
             }
         })
     }
-    fun toConvert(paramFirst: String, paramSecond: String, current : Double, baseCallback: BaseCallback<Double>){
+
+    fun toConvert(paramFirst: String, paramSecond: String, current: Double, baseCallback: BaseCallback<Double>) {
         apiService.toConvert(object : BaseCallback<Double> {
             override fun onSuccess(result: Double) {
-                baseCallback.onSuccess(current*result)
-                roomCashService.addCurrent(result, paramFirst+"_"+paramSecond)
+                baseCallback.onSuccess(current * result)
+                roomCashService.addCurrent(result, paramFirst + "_" + paramSecond)
             }
+
             override fun onError(error: Throwable) {
-                roomCashService.isCashed(object : BaseCallback<Double>{
+                roomCashService.isCashed(object : BaseCallback<Double> {
                     override fun onSuccess(result: Double) {
-                        baseCallback.onSuccess(current*result)
+                        baseCallback.onSuccess(current * result)
                     }
+
                     override fun onError(error: Throwable) {
                         baseCallback.onError(error)
                     }
 
-                },paramFirst+"_"+paramSecond)
+                }, paramFirst + "_" + paramSecond)
             }
 
-        },paramFirst, paramSecond)
+        }, paramFirst, paramSecond)
     }
+
     private fun isNotDigit(c: Char) = c !in '0'..'9'
-    fun isCorrectCurrent(string: String):Boolean{
-        for (i in string){
-            if (isNotDigit(i)){
+    fun isCorrectCurrent(string: String): Boolean {
+        for (i in string) {
+            if (isNotDigit(i)) {
                 return false
             }
         }
