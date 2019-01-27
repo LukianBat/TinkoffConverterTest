@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">TinkoffConverterTest</string>
+    <string name="text_view1">Конвертировать из</string>
+    <string name="text_view2">Конвертировать в</string>
+    <string name="text_view3">Результат</string>
+    <string name="button">Конвертировать</string>
+    <string name="label">Конвертер валют</string>
+    <string name="NetworkError">Ошибка интернет-соединения</string>
+    <string name="CurrentError">Ошибка ввода</string>
+
+</resources>
